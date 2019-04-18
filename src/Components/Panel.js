@@ -1,9 +1,9 @@
 import React  from "react";
-
+import "../css/Panel.css";
 const Panel = (props) => {
     return (
         <div id="display">
-            {props.display}
+        {props.display}
         <p>Volume:</p>
         <input
           type="range"
@@ -15,6 +15,8 @@ const Panel = (props) => {
         />
         <p>Power</p>
         <input type="checkbox" checked={props.power} onChange={props.powerChange}/>
+        <p>Switch</p>
+        <input type="checkbox" onChange={props.switch} ></input>
         </div>
     );
 }
