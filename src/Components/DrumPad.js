@@ -1,9 +1,23 @@
 import React, { Component } from "react";
+import "../css/DrumPad.css";
+
+/* const activeStyle = {
+  backgroundColor: 'white',
+  boxShadow: "0 3px white",
+  height: 77,
+  marginTop: 13 };
+
+const inactiveStyle = {
+  backgroundColor: 'grey',
+  marginTop: 10,
+  boxShadow: "3px 3px 5px black" }; */
 
 class DrumPad extends Component {
-  state ={
-    display : ""
+
+  state = {
+    style: ""
   }
+
   componentDidMount() {
     document.addEventListener("keypress", this.keyPress);
   }
@@ -12,40 +26,37 @@ class DrumPad extends Component {
   }
 
   keyPress = event => {
-    const { power } = this.props;
-    const key = event.key.toUpperCase();
-    const params = /[qweasdzxc]/gi; //teclas permitidas.
-    if (power === true) {
+      const params = /[qweasdzxc]/gi; //teclas permitidas.
+      const key = event.key.toUpperCase();
       if (params.test(event.key)) {
         if (this.props.keyTrigger === key) {
           this.playSound();
-          this.setState({
-            display: this.props.soundName
-          });
-        };
+        }   
       };
-    };
   };
 
   playSound = () => {
+    const { soundName, power } = this.props;
+    if (power){
     const audio = document.getElementById(this.props.keyTrigger);
     audio.volume = this.props.volume;
     audio.currentTime = 0.0;
     audio.play();
-    this.props.displaySound(this.state.display)
-  };
+    this.props.displaySound(soundName);
+    }
+};
 
   render() {
+    const { soundName, sound, keyTrigger, index} = this.props;
     return (
-      <div className={"drum-pad"} id={this.props.soundName}
-       onClick={this.playSound}>
-          {this.props.keyTrigger}
+      <div className={"drum-pad-"+index} id={soundName}
+       onClick={this.playSound} >
+          <label>{keyTrigger}</label>
           <audio
-            className={"clip"}
-            id={this.props.keyTrigger}
-            src={this.props.sound}
+            className={"clip-"+index}
+            id={keyTrigger}
+            src={sound}
           />
-        
       </div>
     );
   }
