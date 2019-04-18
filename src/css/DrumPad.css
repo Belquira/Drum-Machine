@@ -1,0 +1,12 @@
+
+
+[class*="drum-pad-"] {
+    background-color: black;
+    border-radius: 0.2em;
+    color: white;
+    width: 7em;
+    height: 7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
