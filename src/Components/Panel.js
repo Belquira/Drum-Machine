@@ -2,7 +2,8 @@ import React  from "react";
 
 const Panel = (props) => {
     return (
-        <div>
+        <div id="display">
+            {props.display}
         <p>Volume:</p>
         <input
           type="range"

@@ -2,21 +2,19 @@ import React, { Component } from "react";
 import DrumPad from "./DrumPad";
 import Panel from "./Panel";
 import { keySounds } from "../sounds/sounds";
+import "../css/DisplayContainer.css";
 
 class DisplayContainer extends Component {
   state = {
-    keyPressed: "",
     volumen: 0.5,
-    power: true
+    power: true,
+    display: ""
   };
 
-  
-  
   volumenChange = event => {
     this.setState({
       volumen: parseFloat(event.target.value),
     });
-    
   };
 
   powerChange = event => {
@@ -25,27 +23,34 @@ class DisplayContainer extends Component {
       keyPressed: ""
     });
   };
-  
+
+  displaySound = (id) =>{
+    this.setState({
+      display: id
+    })
+  }  
   render() {
     const { volumen, power } = this.state;
     return (
-      <div id="display">
+      <div id="drum-machine">
         {keySounds.map(({ keyTrigger, id, url }) => (
           <DrumPad
-            key={keyTrigger}
+            key={id}
             keyTrigger={keyTrigger}
             sound={url}
-            id={id}
             volume={volumen} 
             power={power}
+            soundName={id}
+            displaySound={this.displaySound}
             />
         ))}
         <Panel 
           volumen={volumen}
           power={power}
           volumenChange={this.volumenChange} 
-          powerChange={this.powerChange} />
-        
+          powerChange={this.powerChange} 
+          display={this.state.display}
+          />
       </div>
     );
   }
