@@ -1,64 +1,93 @@
 import React, { Component } from "react";
 import "../css/DrumPad.css";
 
-/* const activeStyle = {
-  backgroundColor: 'white',
-  boxShadow: "0 3px white",
-  height: 77,
-  marginTop: 13 };
-
-const inactiveStyle = {
-  backgroundColor: 'grey',
-  marginTop: 10,
-  boxShadow: "3px 3px 5px black" }; */
 
 class DrumPad extends Component {
+	state = {
+		style: { backgroundColor: "" }
+	};
 
-  state = {
-    style: ""
-  }
+	activeStyle = drumpadKey => {
+		let drumpadActive = "";
 
-  componentDidMount() {
-    document.addEventListener("keypress", this.keyPress);
-  }
-  componentWillUnmount() {
-    document.removeEventListener("keypress", this.keyPress);
-  }
+		switch (drumpadKey) {
+			default:
+				drumpadActive = "";
+				break;
 
-  keyPress = event => {
-      const params = /[qweasdzxc]/gi; //teclas permitidas.
-      const key = event.key.toUpperCase();
-      if (params.test(event.key)) {
-        if (this.props.keyTrigger === key) {
-          this.playSound();
-        }   
-      };
-  };
+			case "Q":
+			case "W":
+			case "E":
+				drumpadActive = "red";
+				break;
 
-  playSound = () => {
-    const { soundName, power } = this.props;
-    if (power){
-    const audio = document.getElementById(this.props.keyTrigger);
-    audio.volume = this.props.volume;
-    audio.currentTime = 0.0;
-    audio.play();
-    this.props.displaySound(soundName);
-    }
-};
+			case "A":
+			case "S":
+			case "D":
+				drumpadActive = "blue";
+				break;
 
-  render() {
-    const { soundName, sound, keyTrigger, index} = this.props;
-    return (
-      <div className={"drum-pad-"+index} id={soundName}
-       onClick={this.playSound} >
-          <label>{keyTrigger}</label>
-          <audio
-            className={"clip-"+index}
-            id={keyTrigger}
-            src={sound}
-          />
-      </div>
-    );
-  }
+			case "Z":
+			case "X":
+			case "C":
+				drumpadActive = "yellow";
+				break;
+		}
+
+		const stylePad = { backgroundColor: drumpadActive };
+		this.state.style.backgroundColor === drumpadActive
+			? this.setState({ style: { backgroundColor: "" } })
+			: this.setState({ style: stylePad });
+	};
+
+	componentDidMount() {
+		document.addEventListener("keypress", this.keyPress);
+	}
+	componentWillUnmount() {
+		document.removeEventListener("keypress", this.keyPress);
+	}
+
+	keyPress = event => {
+		const { keyTrigger } = this.props;
+		const params = /[qweasdzxc]/gi; //teclas permitidas.
+		const key = event.key.toUpperCase();
+		if (params.test(event.key)) {
+			if (keyTrigger === key) {
+				this.playSound();
+			}
+		}
+	};
+
+	playSound = () => {
+		const { soundName, power, keyTrigger } = this.props;
+		if (power) {
+			const audio = document.getElementById(keyTrigger);
+			audio.volume = this.props.volume;
+			audio.currentTime = 0.0;
+			audio.play();
+			this.props.displaySound(soundName);
+			this.activeStyle(keyTrigger);
+			setTimeout(() => this.activeStyle(keyTrigger), 250);
+		}
+	};
+
+	render() {
+		const { soundName, sound, keyTrigger, index } = this.props;
+		const { style } = this.state;
+		return (
+			<div
+				className={"drum-pad-" + index}
+				id={soundName}
+				onClick={this.playSound}
+				style={style}>
+				<label>{keyTrigger}</label>
+				<audio
+					className={"clip-" + index}
+					id={keyTrigger}
+					src={sound}
+				/>
+			</div>
+		);
+	}
 }
 export default DrumPad;
