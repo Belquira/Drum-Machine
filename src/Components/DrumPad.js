@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "../css/DrumPad.css";
 
-
 class DrumPad extends Component {
 	state = {
 		style: { backgroundColor: "" }
