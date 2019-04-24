@@ -1,12 +1,33 @@
-
-
 [class*="drum-pad-"] {
-    background-color: black;
-    border-radius: 0.2em;
-    color: white;
-    width: 7em;
-    height: 7em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	border-radius: 0.2em;
+	color: white;
+	width: 5em;
+	height: 5em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0.5em;
+}
+
+label {
+	text-shadow: 4px 4px 6px black;
+}
+.drum-pad-1,
+.drum-pad-2,
+.drum-pad-3 {
+	border: solid 0.3em rgba(255, 0, 0, 0.5);
+	box-shadow: 0 0 0.5em red;
+}
+
+.drum-pad-4,
+.drum-pad-5,
+.drum-pad-6 {
+	border: solid 0.3em rgba(0, 0, 255, 0.5);
+	box-shadow: 0 0 0.5em blue;
+}
+.drum-pad-7,
+.drum-pad-8,
+.drum-pad-9 {
+	border: solid 0.3em rgba(255, 255, 0, 0.5);
+	box-shadow: 0 0 0.5em yellow;
 }
