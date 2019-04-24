@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css?family=Righteous");
+
+.container {
+	display: flex;
+	justify-content: center;
+	flex-flow: row;
+}
+
+#drum-machine {
+	border-radius: 1em;
+	background-color: rgba(0, 0, 0, 0.658);
+	display: flex;
+	padding: 0.5em;
+	box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.75);
+}
+#pads-panel {
+	display: flex;
+	flex-flow: row wrap;
+	width: 20em;
+	font-family: "Righteous";
+	font-size: 20px;
+	justify-content: center;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+	#drum-machine {
+		display: flex;
+		flex-flow: column wrap;
+		align-items: center;
+		width: 100%;
+	}
+
+	[class*="drum-pad-"] {
+		width: 4em;
+		height: 4em;
+	}
+
+	#display {
+		flex-flow: row wrap;
+		justify-content: center;
+	}
+
+	.volume-input {
+		transform: rotate(0deg);
+		margin: 0;
+	}
+	.display-panel {
+		height: 3em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.display-panel,
+	.volume-panel,
+	.switch-panel,
+	.power-panel {
+		margin: 0;
+		padding: 0.2em;
+		flex: 1;
+	}
+}
